@@ -29,7 +29,7 @@ const App = ({ children }: any) => {
       <BrowserRouter>
         <Routes>
           <Route path="/news/*" element={<News data={data} />} />
-          <Route path="/news/*title:" element={<News data={data} />} />
+          <Route path="/news/title:" element={<News data={data} />} />
         </Routes>
       </BrowserRouter>
     </Provider>
