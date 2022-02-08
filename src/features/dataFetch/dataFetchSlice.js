@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { titleToRoute } from "../../utilities";
 
+// TODO: createAsyncThunk || RTKQuery
 export const slice = createSlice({
+  // TODO: переименовать
   name: "dataFetch",
   initialState: {
     data: [],

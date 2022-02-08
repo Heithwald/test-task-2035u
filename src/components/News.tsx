@@ -5,6 +5,7 @@ import { selectData } from "../features/dataFetch/dataFetchSlice";
 import { useSelector } from "react-redux";
 
 export const News = () => {
+  // TODO: вынести в types или перенести в reducer, переименовать
   interface NewsItem {
     title: string;
     id: string;
@@ -15,6 +16,8 @@ export const News = () => {
   }
 
   const data = useSelector(selectData);
+
+  // TODO: loading spinner из Antd. компонент-заглушка на случай разрешения запроса с ошибкой
 
   return (
     <div className="news">

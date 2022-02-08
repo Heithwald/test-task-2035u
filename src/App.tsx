@@ -1,8 +1,8 @@
 import "./App.css";
 import { Provider } from "react-redux";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { store } from "./app/store";
-import { fetchData, selectData } from "./features/dataFetch/dataFetchSlice";
+import { fetchData } from "./features/dataFetch/dataFetchSlice";
 import { useEffect } from "react";
 import axios from "axios";
 import { News } from "./components/News";
@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 const App = ({ children }: any) => {
   const dispatch = useDispatch();
 
+  // TODO: разбить строку, вынести apikey в .env-файл
   const URL =
     "https://newsapi.org/v2/everything?q=education&apiKey=d8164f53df774c6eaf90a07f705ecc01";
 
