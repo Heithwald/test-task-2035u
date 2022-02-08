@@ -12,8 +12,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 const App = ({ children }: any) => {
   const dispatch = useDispatch();
 
-  const URL =
-    "https://newsapi.org/v2/everything?q=education&apiKey=d8164f53df774c6eaf90a07f705ecc01";
+  const proxyURL = "https://cors-anywhere.herokuapp.com/";
+
+  const URL = `${proxyURL}https://newsapi.org/v2/everything?q=education&apiKey=d8164f53df774c6eaf90a07f705ecc01`;
 
   useEffect(() => {
     axios.get(URL).then((response) => {
