@@ -1,7 +1,6 @@
 import "antd/dist/antd.css";
 import { Card, Button, Layout, Typography } from "antd";
 import { Link } from "react-router-dom";
-
 import { formatDate } from "../utilities";
 
 export const NewsItemCard = ({ data }: any) => {
