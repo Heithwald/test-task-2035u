@@ -59,7 +59,7 @@ export const NewsItem = () => {
       <PageHeader title="News feed" />
       <Card
         hoverable
-        style={{ width: "50%", padding: "1.5rem", margin: "1.5rem 0" }}
+        style={{ width: "55%", padding: "1.5rem", margin: "1.5rem 0" }}
         className="news-item-card"
       >
         <Meta title={newsItem.title} description={newsItem.description} />

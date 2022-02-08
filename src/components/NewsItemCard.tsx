@@ -1,20 +1,11 @@
 import "antd/dist/antd.css";
-import { Card, Button, Layout, Typography, message } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { deleteElement } from "../features/dataFetch/dataFetchSlice";
+import { Card, Button, Layout, Typography } from "antd";
+import { Link } from "react-router-dom";
+
 import { formatDate } from "../utilities";
 
 export const NewsItemCard = ({ data }: any) => {
   const { Meta } = Card;
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const handleDelete = () => {
-    dispatch(deleteElement(data.title));
-    navigate("/news");
-    message.success("News item was successfully removed");
-  };
 
   return (
     <Card
@@ -52,9 +43,6 @@ export const NewsItemCard = ({ data }: any) => {
           >
             Read more
           </Link>
-        </Button>
-        <Button style={{ marginTop: "1.5rem" }} onClick={handleDelete}>
-          Delete
         </Button>
       </Layout>
     </Card>

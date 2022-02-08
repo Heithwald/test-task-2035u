@@ -28,6 +28,7 @@ const App = ({ children }: any) => {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
+          <Route path="/test-task-2035u" element={<Navigate to="/news" />} />
           <Route path="/" element={<Navigate to="/news" />} />
           <Route path="/news/" element={<News />}></Route>
           <Route path="/news/:title" element={<NewsItem />} />
