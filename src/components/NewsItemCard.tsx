@@ -1,23 +1,35 @@
 import "antd/dist/antd.css";
-import { Card, Button, Layout } from "antd";
-import { Link } from "react-router-dom";
+import { Card, Button, Layout, Typography, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteElement } from "../features/dataFetch/dataFetchSlice";
 
 export const NewsItemCard = ({ data }: any) => {
   const { Meta } = Card;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleDelete = () => {
+    dispatch(deleteElement(data.title));
+    navigate("/news");
+    message.success("News item was successfully removed");
+  };
 
   return (
     <Card
       hoverable
       style={{
         display: "flex",
-        width: "50%",
+        width: "55%",
         padding: "1.5rem",
         margin: "1.5rem 0",
       }}
       className="news-item-card"
     >
       <Meta title={data.title} description={data.description} />
-
+      <Typography
+        style={{ marginTop: "0.5rem" }}
+      >{`Published:${data.publishedAt}`}</Typography>
       <Layout
         style={{
           flexDirection: "row",
@@ -39,6 +51,9 @@ export const NewsItemCard = ({ data }: any) => {
           >
             Read more
           </Link>
+        </Button>
+        <Button style={{ marginTop: "1.5rem" }} onClick={handleDelete}>
+          Delete
         </Button>
       </Layout>
     </Card>

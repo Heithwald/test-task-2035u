@@ -18,10 +18,11 @@ export const slice = createSlice({
       state.data = normalizedData;
     },
     deleteElement: (state, action) => {
-      let reducedArray = state.data.filter(
-        (element) => element.title !== action.payload
-      );
+      let reducedArray = state.data.filter((element) => {
+        return element.title !== action.payload;
+      });
       state.data = reducedArray;
+      console.log("reducer", reducedArray);
     },
   },
 });
