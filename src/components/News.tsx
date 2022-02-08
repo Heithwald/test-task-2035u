@@ -1,16 +1,20 @@
 import "antd/dist/antd.css";
 import { PageHeader } from "antd";
 import { NewsItemCard } from "./NewsItemCard";
-import { NewsItem } from "./NewsItem";
+import { selectData } from "../features/dataFetch/dataFetchSlice";
+import { useSelector } from "react-redux";
 
-export const News = ({ data }: any) => {
+export const News = () => {
   interface NewsItem {
     title: string;
+    id: string;
     author: string;
     description: string;
     url: string;
     publishedAt: string;
   }
+
+  const data = useSelector(selectData);
 
   return (
     <div className="news">

@@ -6,30 +6,29 @@ import { fetchData, selectData } from "./features/dataFetch/dataFetchSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { News } from "./components/News";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { NewsItem } from "./components/NewsItem";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 const App = ({ children }: any) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://newsapi.org/v2/everything?q=education&apiKey=d8164f53df774c6eaf90a07f705ecc01"
-      )
-      .then((response) => {
-        console.log("Response:", response.data.articles);
-        dispatch(fetchData(response.data.articles));
-      });
-  }, []);
+  const URL =
+    "https://newsapi.org/v2/everything?q=education&apiKey=d8164f53df774c6eaf90a07f705ecc01";
 
-  const data = useSelector(selectData);
+  useEffect(() => {
+    axios.get(URL).then((response) => {
+      console.log("Response:", response.data.articles);
+      dispatch(fetchData(response.data.articles));
+    });
+  }, []);
 
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/news/*" element={<News data={data} />} />
-          <Route path="/news/title:" element={<News data={data} />} />
+          <Route path="/" element={<Navigate to="/news" />} />
+          <Route path="/news/" element={<News />}></Route>
+          <Route path="/news/:title" element={<NewsItem />} />
         </Routes>
       </BrowserRouter>
     </Provider>

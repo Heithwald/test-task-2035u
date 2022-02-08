@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { titleToRoute } from "../../utilities";
 
 export const slice = createSlice({
   name: "dataFetch",
@@ -7,7 +8,14 @@ export const slice = createSlice({
   },
   reducers: {
     fetchData: (state, action) => {
-      state.data = action.payload;
+      const normalizedData = action.payload.map((item) => {
+        return {
+          ...item,
+          routeTitle: titleToRoute(item.title), // трансформация title в более удобоваримый для передачи в параметр и для построения URL
+        };
+      });
+      console.log("normalizedData", normalizedData);
+      state.data = normalizedData;
     },
     deleteElement: (state, action) => {
       let reducedArray = state.data.filter(
@@ -18,6 +26,6 @@ export const slice = createSlice({
   },
 });
 
-export const { fetchData, deleteElement } = slice.actions;
+export const { fetchData, getNewsItem, deleteElement } = slice.actions;
 export const selectData = (state) => state.dataFetch.data;
 export default slice.reducer;
