@@ -39,7 +39,7 @@ export const NewsItem = () => {
   }
 
   const handleDelete = () => {
-    dispatch(deleteElement(data.title));
+    dispatch(deleteElement(newsItem.title));
     navigate("/news");
     message.success("News item was successfully removed");
   };
@@ -64,7 +64,7 @@ export const NewsItem = () => {
       >
         <Meta title={newsItem.title} description={newsItem.description} />
         <Typography
-          style={{ marginTop: "0.5rem", fontSize: "0.6rem", fontWeight: "500" }}
+          style={{ marginTop: "0.6rem", fontSize: "0.6rem", fontWeight: "500" }}
         >{`Published: ${formatDate(newsItem.publishedAt)}`}</Typography>
         <Typography style={{ marginTop: "1.5rem" }}>
           {newsItem.content}

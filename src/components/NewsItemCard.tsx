@@ -29,7 +29,7 @@ export const NewsItemCard = ({ data }: any) => {
     >
       <Meta title={data.title} description={data.description} />
       <Typography
-        style={{ marginTop: "0.5rem", fontSize: "0.6rem", fontWeight: "500" }}
+        style={{ marginTop: "0.6rem", fontSize: "0.6rem", fontWeight: "500" }}
       >{`Published: ${formatDate(data.publishedAt)}`}</Typography>
       <Layout
         style={{
