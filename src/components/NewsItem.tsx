@@ -15,6 +15,7 @@ import {
   selectData,
   deleteElement,
 } from "../features/dataFetch/dataFetchSlice";
+import { formatDate } from "../utilities";
 
 export const NewsItem = () => {
   const params = useParams();
@@ -62,7 +63,9 @@ export const NewsItem = () => {
         className="news-item-card"
       >
         <Meta title={newsItem.title} description={newsItem.description} />
-
+        <Typography
+          style={{ marginTop: "0.5rem", fontSize: "0.6rem", fontWeight: "500" }}
+        >{`Published: ${formatDate(newsItem.publishedAt)}`}</Typography>
         <Typography style={{ marginTop: "1.5rem" }}>
           {newsItem.content}
         </Typography>
