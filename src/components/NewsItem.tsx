@@ -11,11 +11,9 @@ import {
 import { DeleteOutlined } from "@ant-design/icons";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectData,
-  deleteElement,
-} from "../features/dataFetch/dataFetchSlice";
+import { selectData, deleteElement } from "../features/newsList/newsListSlice";
 import { formatDate } from "../utilities";
+import { INewsItem } from "../types";
 
 export const NewsItem = () => {
   const params = useParams();
@@ -23,20 +21,10 @@ export const NewsItem = () => {
   const dispatch = useDispatch();
   const data = useSelector(selectData);
   const newsItem = data.find(
-    (newsItem: NewsItem) => newsItem.routeTitle === params.title
+    (newsItem: INewsItem) => newsItem.routeTitle === params.title
   );
 
   const { Meta } = Card;
-
-  interface NewsItem {
-    title: string;
-    id: string;
-    routeTitle: string;
-    author: string;
-    description: string;
-    url: string;
-    publishedAt: string;
-  }
 
   const handleDelete = () => {
     dispatch(deleteElement(newsItem.title));

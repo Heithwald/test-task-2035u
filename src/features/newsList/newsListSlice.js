@@ -3,10 +3,10 @@ import { titleToRoute } from "../../utilities";
 
 // TODO: createAsyncThunk || RTKQuery
 export const slice = createSlice({
-  // TODO: переименовать
-  name: "dataFetch",
+  name: "newsList",
   initialState: {
     data: [],
+    apiCall: { status: "Pending" },
   },
   reducers: {
     fetchData: (state, action) => {
@@ -16,8 +16,10 @@ export const slice = createSlice({
           routeTitle: titleToRoute(item.title), // трансформация title в более удобоваримый для передачи в параметр и для построения URL
         };
       });
-      console.log("normalizedData", normalizedData);
       state.data = normalizedData;
+    },
+    setApiCallStatus: (state, action) => {
+      state.apiCall.status = action.payload;
     },
     deleteElement: (state, action) => {
       let reducedArray = state.data.filter((element) => {
@@ -29,6 +31,13 @@ export const slice = createSlice({
   },
 });
 
-export const { fetchData, getNewsItem, deleteElement } = slice.actions;
-export const selectData = (state) => state.dataFetch.data;
+export const {
+  fetchData,
+  setApiCallStatus,
+  setApiCallError,
+  getNewsItem,
+  deleteElement,
+} = slice.actions;
+export const selectData = (state) => state.newsList.data;
+export const selectApiCallStatus = (state) => state.newsList.apiCall.status;
 export default slice.reducer;

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import dataFetchReducer from "../features/dataFetch/dataFetchSlice";
+import newsListReducer from "../features/newsList/newsListSlice";
 
 export const store = configureStore({
-  reducer: { dataFetch: dataFetchReducer },
+  reducer: { newsList: newsListReducer },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

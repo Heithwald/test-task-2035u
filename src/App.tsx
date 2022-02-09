@@ -1,26 +1,31 @@
 import "./App.css";
-import { Provider } from "react-redux";
-import { useDispatch } from "react-redux";
-import { store } from "./app/store";
-import { fetchData } from "./features/dataFetch/dataFetchSlice";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Provider, useDispatch } from "react-redux";
 import axios from "axios";
+
+import { store } from "./app/store";
+import { fetchData, setApiCallStatus } from "./features/newsList/newsListSlice";
+
 import { News } from "./components/News";
 import { NewsItem } from "./components/NewsItem";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 const App = ({ children }: any) => {
   const dispatch = useDispatch();
-
-  // TODO: разбить строку, вынести apikey в .env-файл
-  const URL =
-    "https://newsapi.org/v2/everything?q=education&apiKey=d8164f53df774c6eaf90a07f705ecc01";
+  const URL = `
+    ${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_URL_PARAMETERS}${process.env.REACT_APP_API_KEY}`;
 
   useEffect(() => {
-    axios.get(URL).then((response) => {
-      console.log("Response:", response.data.articles);
-      dispatch(fetchData(response.data.articles));
-    });
+    axios
+      .get(URL)
+      .then((response) => {
+        dispatch(fetchData(response.data.articles));
+        dispatch(setApiCallStatus("Success"));
+      })
+      .catch((error) => {
+        console.log(error.toJSON());
+        dispatch(setApiCallStatus("Error"));
+      });
   }, []);
 
   return (
