@@ -9,11 +9,38 @@ import {
   message,
 } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectData, deleteElement } from "../features/newsList/newsListThunk";
 import { formatDate } from "../utilities";
 import { INewsItem } from "../types";
+
+const Container = styled(Layout)`
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+`;
+
+const NewsItemBody = styled(Card)`
+  width: 55%;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+`;
+
+const PublishedAt = styled(Typography)`
+  margin-top: 0.6rem;
+  font-size: 0.6rem;
+  font-weight: 500;
+`;
+
+const NewsItemContent = styled(Typography)`
+  margin-top: 1.5rem;
+`;
+
+const DeleteButton = styled(Button)`
+  margin-top: 1.5rem;
+`;
 
 export const NewsItem = () => {
   const params = useParams();
@@ -39,26 +66,16 @@ export const NewsItem = () => {
   // TODO: styled components для большей читаемости UI ниже
 
   return (
-    <Layout
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <Container>
       <PageHeader title="News feed" />
-      <Card
-        hoverable
-        style={{ width: "55%", padding: "1.5rem", margin: "1.5rem 0" }}
-        className="news-item-card"
-      >
+      <NewsItemBody hoverable>
         <Meta title={newsItem.title} description={newsItem.description} />
-        <Typography
-          style={{ marginTop: "0.6rem", fontSize: "0.6rem", fontWeight: "500" }}
-        >{`Published: ${formatDate(newsItem.publishedAt)}`}</Typography>
-        <Typography style={{ marginTop: "1.5rem" }}>
-          {newsItem.content}
-        </Typography>
+
+        <PublishedAt>
+          {`Published: ${formatDate(newsItem.publishedAt)}`}
+        </PublishedAt>
+
+        <NewsItemContent>{newsItem.content}</NewsItemContent>
         <Popconfirm
           title="Are you sure you want to delete this card?"
           onConfirm={handleDelete}
@@ -66,12 +83,12 @@ export const NewsItem = () => {
           okText="Yes"
           cancelText="No"
         >
-          <Button style={{ marginTop: "1.5rem" }}>
+          <DeleteButton>
             <DeleteOutlined />
             Delete
-          </Button>
+          </DeleteButton>
         </Popconfirm>
-      </Card>
-    </Layout>
+      </NewsItemBody>
+    </Container>
   );
 };

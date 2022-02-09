@@ -1,7 +1,8 @@
 import "antd/dist/antd.css";
-import { PageHeader } from "antd";
+import { PageHeader, Layout } from "antd";
+import styled from "styled-components";
 import { LoadingSpinner } from "./LoadingSpinner";
-import { LoadingError } from "./LoadingError";
+import { ErrorPage } from "./ErrorPage";
 import { NewsItemCard } from "./NewsItemCard";
 import {
   selectData,
@@ -11,20 +12,25 @@ import {
 import { useSelector } from "react-redux";
 import { INewsItem } from "../types";
 
+const NewsList = styled(Layout)`
+  align-items: center;
+  min-height: 100vh;
+`;
+
 export const News = () => {
   const data = useSelector(selectData);
   const isLoading = useSelector(selectLoadingStatus);
   const isError = useSelector(selectErrorStatus);
 
   return (
-    <div className="news">
+    <NewsList>
       <PageHeader title="News feed" />
       {isLoading && <LoadingSpinner />}
-      {isError && <LoadingError />}
+      {isError && <ErrorPage />}
       {!isError &&
         data.map((newsItem: INewsItem, key: string) => {
           return <NewsItemCard data={newsItem} key={key} />;
         })}
-    </div>
+    </NewsList>
   );
 };

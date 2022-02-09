@@ -1,7 +1,7 @@
 import { Result, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
-export const LoadingError = () => {
+export const ErrorPage = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
