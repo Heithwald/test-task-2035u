@@ -11,7 +11,7 @@ import {
 import { DeleteOutlined } from "@ant-design/icons";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectData, deleteElement } from "../features/newsList/newsListSlice";
+import { selectData, deleteElement } from "../features/newsList/newsListThunk";
 import { formatDate } from "../utilities";
 import { INewsItem } from "../types";
 
@@ -24,8 +24,6 @@ export const NewsItem = () => {
     (newsItem: INewsItem) => newsItem.routeTitle === params.title
   );
 
-  const { Meta } = Card;
-
   const handleDelete = () => {
     dispatch(deleteElement(newsItem.title));
     navigate("/news");
@@ -35,6 +33,10 @@ export const NewsItem = () => {
   const cancelDelete = () => {
     message.error("News item was not removed");
   };
+
+  const { Meta } = Card;
+
+  // TODO: styled components для большей читаемости UI ниже
 
   return (
     <Layout

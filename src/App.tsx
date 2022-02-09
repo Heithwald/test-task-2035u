@@ -1,31 +1,19 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import { Provider, useDispatch } from "react-redux";
-import axios from "axios";
+import { useEffect } from "react";
 
 import { store } from "./app/store";
-import { fetchData, setApiCallStatus } from "./features/newsList/newsListSlice";
+import { Provider, useDispatch } from "react-redux";
+import { getNewsData } from "./features/newsList/newsListThunk";
 
 import { News } from "./components/News";
 import { NewsItem } from "./components/NewsItem";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-const App = ({ children }: any) => {
+const App = () => {
   const dispatch = useDispatch();
-  const URL = `
-    ${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_URL_PARAMETERS}${process.env.REACT_APP_API_KEY}`;
 
   useEffect(() => {
-    axios
-      .get(URL)
-      .then((response) => {
-        dispatch(fetchData(response.data.articles));
-        dispatch(setApiCallStatus("Success"));
-      })
-      .catch((error) => {
-        console.log(error.toJSON());
-        dispatch(setApiCallStatus("Error"));
-      });
+    dispatch(getNewsData());
   }, []);
 
   return (

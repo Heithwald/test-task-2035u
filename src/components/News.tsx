@@ -5,24 +5,26 @@ import { LoadingError } from "./LoadingError";
 import { NewsItemCard } from "./NewsItemCard";
 import {
   selectData,
-  selectApiCallStatus,
-} from "../features/newsList/newsListSlice";
+  selectLoadingStatus,
+  selectErrorStatus,
+} from "../features/newsList/newsListThunk";
 import { useSelector } from "react-redux";
 import { INewsItem } from "../types";
 
 export const News = () => {
   const data = useSelector(selectData);
-  const apiCallStatus = useSelector(selectApiCallStatus);
+  const isLoading = useSelector(selectLoadingStatus);
+  const isError = useSelector(selectErrorStatus);
 
   return (
     <div className="news">
       <PageHeader title="News feed" />
-      {apiCallStatus === "Pending" && <LoadingSpinner />}
-      {apiCallStatus === "Success" &&
+      {isLoading && <LoadingSpinner />}
+      {isError && <LoadingError />}
+      {!isError &&
         data.map((newsItem: INewsItem, key: string) => {
           return <NewsItemCard data={newsItem} key={key} />;
         })}
-      {apiCallStatus === "Error" && <LoadingError />}
     </div>
   );
 };
